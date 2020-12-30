@@ -7,8 +7,8 @@ from datetime import datetime
 
 team_name = "morAndEden"
 
-magic_cookie = 0xfeedbeef
-offer_message_type = 0x2
+magic_cookie = int("0xfeedbeef", 0)
+offer_message_type = int("0x2", 0)
 
 #ip = "132.72.66.42"
 port = 2104
@@ -27,9 +27,11 @@ while running:
     # Looking for a server
     print("Client started, listening for offer requests...") # inside of outside ?!
     #we recive the masseg here becuase we want just the first one !
+
     data, address = udp_client_socket.recvfrom(2048) # buffer size is 1024 bytes - WHAT SHOULD IT BE?
-    tuple_info =struct.unpack('Ibh', data)  # or 'LBH' ???
+    tuple_info =struct.unpack('Ibh', data)  # or 'LBH' ??? # falls here
     # check what we recive its ok
+   
 
     if tuple_info[0] == magic_cookie and tuple_info[1] == offer_message_type: # offer massege
 
@@ -51,12 +53,13 @@ while running:
 
         t1 = datetime.now()
         while (datetime.now() - t1).seconds <= 10:
-            if msvcrt.kbhit():  # <--------
-                char = getch.getch()
-                try:
-                    tcp_socket.send(char.encode())
-                except:
-                    break
+            #if msvcrt.kbhit():  # <--------
+            #char = getch.getch()
+            char = "a"
+            try:
+                tcp_socket.send(char.encode())
+            except:
+                break
 
             #time.sleep(0.1)
 
