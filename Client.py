@@ -2,19 +2,18 @@ import socket
 import struct
 import time
 from datetime import datetime
-import msvcrt
+#import msvcrt
+import getch
 #from pynput import keyboard
 
 
 def run_client():
-    team_name = "morAndEden"
+    team_name = "morAndEden" 
     magic_cookie = 0xfeedbeef
     offer_message_type = 0x2
-    port = 2104
     source_port_udp = 13117 #our udp port! all the serverce try to connect to this port!
 
-    running = True
-    while running:
+    while True:
 
         udp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
         udp_client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)# Enable broadcasting mode
@@ -43,7 +42,7 @@ def run_client():
 
             t1 = datetime.now()
             while (datetime.now() - t1).seconds <= 10:
-                char = msvcrt.getch()              
+                char = getch.getch()              
                 try:
                     tcp_socket.send(char) # already encoded
                 except:
